@@ -27,6 +27,10 @@ import {
   AdminPanelSettingsOutlined,
   TrendingUpOutlined,
   PieChartOutlined,
+  InboxOutlined,
+  BusinessOutlined,
+  BarChartOutlined,
+  EventOutlined
 } from "@mui/icons-material";
 import { useLocation, useNavigate } from "react-router-dom";
 import FlexBetween from "@/components/FlexBetween";
@@ -37,45 +41,28 @@ const navItems = [
     icon: <HomeOutlined />,
   },
   {
-    text: "Client Facing",
+    text: "User",
     icon: null,
   },
   {
-    text: "Products",
-    icon: <ShoppingCartOutlined />,
+    text: "Inbox",
+    icon: <InboxOutlined />,
   },
   {
-    text: "Customers",
-    icon: <Groups2Outlined />,
+    text: "My Office",
+    text_link: "my-office",
+    icon: <BusinessOutlined />,
   },
   {
-    text: "Transactions",
-    icon: <ReceiptLongOutlined />,
+    text: "Marketing Center",
+    text_link: "marketing-center",
+    icon: <BarChartOutlined />,
   },
   {
-    text: "Geography",
-    icon: <PublicOutlined />,
+    text: "Events",
+    icon: <EventOutlined />,
   },
-  {
-    text: "Sales",
-    icon: null,
-  },
-  {
-    text: "Overview",
-    icon: <PointOfSaleOutlined />,
-  },
-  {
-    text: "Daily",
-    icon: <TodayOutlined />,
-  },
-  {
-    text: "Monthly",
-    icon: <CalendarMonthOutlined />,
-  },
-  {
-    text: "Breakdown",
-    icon: <PieChartOutlined />,
-  },
+  
   {
     text: "Management",
     icon: null,
@@ -141,7 +128,7 @@ const Sidebar = ({
               </FlexBetween>
             </Box>
             <List>
-              {navItems.map(({ text, icon }) => {
+              {navItems.map(({ text, text_link , icon }) => {
                 if (!icon) {
                   return (
                     <Typography key={text} sx={{ m: "2.25rem 0 1rem 3rem" }}>
@@ -149,7 +136,7 @@ const Sidebar = ({
                     </Typography>
                   );
                 }
-                const lcText = text.toLowerCase();
+                const lcText = text_link != null ? text_link.toLowerCase() : text.toLowerCase();
 
                 return (
                   <ListItem key={text} disablePadding>
@@ -209,7 +196,7 @@ const Sidebar = ({
                   fontSize="0.9rem"
                   sx={{ color: theme.palette.secondary[100] }}
                 >
-                  {user.name}
+                  {user.firstName} {user.middleName} {user.lastName}
                 </Typography>
                 <Typography
                   fontSize="0.8rem"

@@ -6,6 +6,10 @@ import { useSelector } from "react-redux";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Layout from "@/scenes/layout";
 import Dashboard from "@/scenes/dashboard";
+import Inbox from "@/scenes/inbox";
+import MyOffice from "@/scenes/my_office";
+import MarketingCenter from "@/scenes/marketing_center";
+import Events from "@/scenes/events";
 
 function App() {
   const mode = useSelector((state) => state.global.mode);
@@ -20,6 +24,10 @@ function App() {
             <Route element={<Layout />}>
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/inbox" element={<Inbox />} />
+              <Route path="/my-office" element={<MyOffice />} />
+              <Route path="/marketing-center" element={<MarketingCenter />} />
+              <Route path="/events" element={<Events />} />
             </Route>
           </Routes>
         </ThemeProvider>
