@@ -16,6 +16,8 @@ const Dashboard = () => {
   const { data } = useGetUserQuery(userId);
   const theme = useTheme();
 
+  useSelector((state) => console.log("STATE: ", state.global));
+
   const propertiesData = [
     {
       title: "Apartment 1",
