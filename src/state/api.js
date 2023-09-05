@@ -5,11 +5,23 @@ export const api = createApi({
     baseUrl: import.meta.env.VITE_REACT_APP_BASE_URL,
   }),
   reducerPath: "adminApi",
-  tagTypes: ["User", "GetCDAList", "GetCDA", "AddCDA", "UpdateCDA", "DeleteCDA"],
+  tagTypes: [
+    "User",
+    "GetUserList",
+    "GetCDAList",
+    "GetCDA",
+    "AddCDA",
+    "UpdateCDA",
+    "DeleteCDA",
+  ],
   endpoints: (build) => ({
     getUser: build.query({
       query: (id) => `api/general/user/${id}`,
       providesTags: ["User"],
+    }),
+    getUserList: build.query({
+      query: () => `api/management/`,
+      providesTags: ["GetUserList"],
     }),
     getCDAList: build.query({
       query: () => `api/management/show-cda-list`,
@@ -36,6 +48,7 @@ export const api = createApi({
 
 export const {
   useGetUserQuery,
+  useGetUserListQuery,
   useGetCDAQuery,
   useGetCDAListQuery,
   useStoreCDAQuery,

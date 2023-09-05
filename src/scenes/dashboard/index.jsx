@@ -16,7 +16,8 @@ const Dashboard = () => {
   const { data } = useGetUserQuery(userId);
   const theme = useTheme();
 
-  useSelector((state) => console.log("STATE: ", state.global));
+  useSelector((state) => console.log("STATE: ", state));
+  console.log("🚀 ~ file: index.jsx:17 ~ Dashboard ~ data:", data)
 
   const propertiesData = [
     {
