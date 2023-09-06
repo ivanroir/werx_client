@@ -1,8 +1,24 @@
 import { useState } from "react";
 import * as React from "react";
-import { Box, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Grid,
+  useTheme,
+  InputBase,
+  IconButton,
+} from "@mui/material";
+import FlexBetween from "./FlexBetween";
+import { Search } from "@mui/icons-material";
 
-const DashboardBox = ({ title, children, subTitle, caption, ...props }) => {
+const DashboardBox = ({
+  title,
+  title2,
+  children,
+  subTitle,
+  caption,
+  ...props
+}) => {
   const theme = useTheme();
   return (
     <Box
@@ -14,13 +30,50 @@ const DashboardBox = ({ title, children, subTitle, caption, ...props }) => {
       height="100%"
       width="100%"
     >
-      <Typography
-        variant="h6"
-        pb="1.5rem"
-        sx={{ color: theme.palette.secondary[100] }}
-      >
-        {title}
-      </Typography>
+      <Grid container spacing={2}>
+        <Grid item xs={6}>
+          <Typography
+            variant="h6"
+            pb="1rem"
+            sx={{ color: theme.palette.secondary[100] }}
+          >
+            {title}
+          </Typography>
+          <FlexBetween
+            backgroundColor={theme.palette.background.alt}
+            borderRadius="9px"
+            gap="3rem"
+            pb="1rem"
+          >
+            <InputBase placeholder="Search..." />
+            <IconButton>
+              <Search />
+            </IconButton>
+          </FlexBetween>
+        </Grid>
+        {title2 != null && (
+          <Grid item xs={6}>
+            <Typography
+              variant="h6"
+              pb="1rem"
+              sx={{ color: theme.palette.secondary[100] }}
+            >
+              {title2}
+            </Typography>
+            <FlexBetween
+              backgroundColor={theme.palette.background.alt}
+              borderRadius="9px"
+              gap="3rem"
+              pb="1rem"
+            >
+              <InputBase placeholder="Search..." />
+              <IconButton>
+                <Search />
+              </IconButton>
+            </FlexBetween>
+          </Grid>
+        )}
+      </Grid>
       {subTitle != null && (
         <Typography
           variant="body1"
@@ -30,6 +83,7 @@ const DashboardBox = ({ title, children, subTitle, caption, ...props }) => {
           {subTitle}
         </Typography>
       )}
+
       {children}
       {caption != null && (
         <Typography

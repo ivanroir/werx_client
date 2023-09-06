@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   Paper,
   Stack,
@@ -20,6 +20,7 @@ import {
 } from "@/state/api";
 import { useSelector, useDispatch } from "react-redux";
 import { addCDA } from "@/state";
+import Swal from "sweetalert2";
 
 const style = {
   position: "absolute",
@@ -43,9 +44,9 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const ClosedCDA = () => {
   const dispatch = useDispatch();
-  // const { isSuccess } = useSelector((state) => state.user);
 
   const { data: getUserListData } = useGetUserListQuery();
+  const { data: getCDAListQuery } = useGetCDAListQuery();
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -53,96 +54,62 @@ const ClosedCDA = () => {
   const fileInputRef = useRef(null);
 
   const [value, setValue] = useState();
-  // const { data: getCDAList, isLoading } = useGetCDAListQuery();
-  // const { data: getUserList, isLoading } = useGetUserListQuery();
 
   console.log(
-    "🚀 ~ file: ClosedCDA.jsx:49 ~ ClosedCDA ~ getUserListData:",
-    getUserListData
+    "🚀 ~ file: ClosedCDA.jsx:49 ~ ClosedCDA ~ getCDAListQuery:",
+    getCDAListQuery
   );
-
-  const users = useSelector((state) => {
-    return state.global;
-  });
-
-  const handleFile = (e) => {
-    setValue({ ...value, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      dispatch(addCDA(value));
+      dispatch(addCDA(value)).then(() => {
+        Swal.fire({
+          title: "Saved",
+          text: "CDA File was added Successfully",
+          icon: "success",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Confirm",
+          allowOutsideClick: false,
+          customClass: {
+            container: "swal-index",
+          },
+        }).then((result) => {
+          if (result.isConfirmed) {
+            handleClose();
+            setValue("");
+          }
+        });
+      });
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <div>
+    <>
       <Stack
         direction={{ xs: "column", sm: "row" }}
         spacing={{ xs: 1, sm: 2, md: 4 }}
-        sx={{ padding: 1 }}
+        sx={{ padding: 1, overflow: "auto", maxWidth: "1450px" }}
+        className="scrollbar"
       >
-        <Item>
-          <CardMedia
-            component="img"
-            sx={{ width: 151 }}
-            image="https://placehold.co/600x400"
-            alt=""
-          />
-        </Item>
-        <Item>
-          <CardMedia
-            component="img"
-            sx={{ width: 151 }}
-            image="https://placehold.co/600x400"
-            alt=""
-          />
-        </Item>
-        <Item>
-          <CardMedia
-            component="img"
-            sx={{ width: 151 }}
-            image="https://placehold.co/600x400"
-            alt=""
-          />
-        </Item>
-        <Item>
-          <CardMedia
-            component="img"
-            sx={{ width: 151 }}
-            image="https://placehold.co/600x400"
-            alt=""
-          />
-        </Item>
-        <Item>
-          <CardMedia
-            component="img"
-            sx={{ width: 151 }}
-            image="https://placehold.co/600x400"
-            alt=""
-          />
-        </Item>
-        <Item>
-          <CardMedia
-            component="img"
-            sx={{ width: 151 }}
-            image="https://placehold.co/600x400"
-            alt=""
-          />
-        </Item>
-        <Item>
-          <CardMedia
-            component="img"
-            sx={{ width: 151 }}
-            image="https://placehold.co/600x400"
-            alt=""
-          />
-        </Item>
+        {getCDAListQuery?.map((data, index) => {
+          return (
+            <Item>
+              <Button>
+                <CardMedia
+                  component="img"
+                  sx={{ width: 151 }}
+                  image="https://placehold.co/600x400"
+                  alt=""
+                />
+              </Button>
+            </Item>
+          );
+        })}
       </Stack>
-      <Box display="flex" justifyContent="end">
+      <Box display="flex" justifyContent="end" pt={1}>
         <Button onClick={handleOpen} variant="contained">
           Upload
         </Button>
@@ -191,7 +158,7 @@ const ClosedCDA = () => {
                     onChange={(e) => {
                       setValue({
                         ...value,
-                        file: e.target.files[0]
+                        file: e.target.files[0],
                         // [e.target.name]: fileInputRef.current.files[0],
                       });
                     }}
@@ -209,7 +176,7 @@ const ClosedCDA = () => {
           </Box>
         </form>
       </Modal>
-    </div>
+    </>
   );
 };
 
