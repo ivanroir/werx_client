@@ -17,8 +17,8 @@ const Dashboard = () => {
   const { data } = useGetUserQuery(userId);
   const theme = useTheme();
 
-  useSelector((state) => console.log("STATE: ", state));
-  console.log("🚀 ~ file: index.jsx:17 ~ Dashboard ~ data:", data);
+  // useSelector((state) => console.log("STATE: ", state));
+  // console.log("🚀 ~ file: index.jsx:17 ~ Dashboard ~ data:", data);
 
   const propertiesData = [
     {
@@ -83,7 +83,7 @@ const Dashboard = () => {
     },
   ];
 
-  console.log("🚀 ~ file: index.jsx:10 ~ Dashboard ~ data:", data);
+  // console.log("🚀 ~ file: index.jsx:10 ~ Dashboard ~ data:", data);
 
   return (
     <Box m="1.5rem 2.5rem">
@@ -180,48 +180,62 @@ const Dashboard = () => {
           spacing={{ xs: 2, md: 3 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
-          <Grid item xs={2} sm={4} md={4}>
-            <DashboardBox title="Open Properties" title2="Sold Properties">
+          <Grid item xs={4} sm={8} md={8}>
+            <DashboardBox title="Sold Properties" title2="Open Properties">
               <Properties propertiesData={propertiesData} />
             </DashboardBox>
           </Grid>
           <Grid item xs={2} sm={4} md={4}>
-            <DashboardBox title="PAID CAP">
-              <PaidCap />
-            </DashboardBox>
-          </Grid>
-          <Grid item xs={2} sm={4} md={4}>
-            <DashboardBox title="CLIENT MAPS">
-              <ClientMaps />
-            </DashboardBox>
-          </Grid>
-        </Grid>
-      </Box>
-      <Box sx={{ display: "flex", mt: 1, mb: 1 }}>
-        <DashboardBox title="CLOSED CDA">
-          <ClosedCDA />
-        </DashboardBox>
-      </Box>
-
-      <Box sx={{ mt: 1, mb: 1 }}>
-        <Grid
-          container
-          spacing={{ xs: 2, md: 3 }}
-          columns={{ xs: 4, sm: 8, md: 12 }}
-        >
-          <Grid item xs={2} sm={4} md={4}>
-            <DashboardBox title="COMMISSION">
-              <Commission />
-            </DashboardBox>
-          </Grid>
-          <Grid item xs={2} sm={4} md={4}>
-            <DashboardBox title="OFFICES"></DashboardBox>
-          </Grid>
-          <Grid item xs={2} sm={4} md={4}>
-            <DashboardBox title="LICENSES"></DashboardBox>
+            <Grid
+              container
+              spacing={{ xs: 1, md: 1 }}
+              columns={{ xs: 4, sm: 8, md: 12 }}
+              sx={{ height: "100%" }}
+            >
+              <Grid item xs={12} sm={12} md={12}>
+                <DashboardBox title="COMMISSION">
+                  <Commission />
+                </DashboardBox>
+              </Grid>
+              <Grid item xs={12} sm={12} md={12}>
+                <DashboardBox title="OFFICES"></DashboardBox>
+              </Grid>
+              <Grid item xs={12} sm={12} md={12}>
+                <DashboardBox title="LICENSES"></DashboardBox>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Box>
+      <Grid
+        container
+        spacing={{ xs: 2, md: 3 }}
+        columns={{ xs: 4, sm: 8, md: 12 }}
+      >
+        <Grid item xs={2} sm={4} md={4}>
+          <Grid
+            container
+            spacing={{ xs: 2, md: 3 }}
+            columns={{ xs: 4, sm: 8, md: 12 }}
+          >
+            <Grid item xs={12} sm={12} md={12}>
+              <DashboardBox title="Paid Cap">
+                <PaidCap />
+              </DashboardBox>
+            </Grid>
+            <Grid item xs={12} sm={12} md={12}>
+              <DashboardBox title="Client Map">
+                <ClientMaps />
+              </DashboardBox>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={4} sm={8} md={8}>
+          <DashboardBox title="CLOSED CDA">
+            <ClosedCDA />
+          </DashboardBox>
+        </Grid>
+      </Grid>
 
       <Box sx={{ mt: 1, mb: 1 }}>
         <Grid

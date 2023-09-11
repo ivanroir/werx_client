@@ -9,6 +9,7 @@ import {
   Typography,
   Autocomplete,
   TextField,
+  FormControl,
   Grid,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
@@ -21,6 +22,14 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { addCDA } from "@/state";
 import Swal from "sweetalert2";
+import TableData from "./TableData";
+import { Document, Page, pdfjs  } from "react-pdf";
+import pdf from "./FIBA23.pdf";
+
+pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+  'pdfjs-dist/build/pdf.worker.min.js',
+  import.meta.url,
+).toString();
 
 const style = {
   position: "absolute",
@@ -52,13 +61,21 @@ const ClosedCDA = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const fileInputRef = useRef(null);
+  const userId = useSelector((state) => state.global.userId);
 
-  const [value, setValue] = useState();
+  const [numPages, setNumPages] = useState();
+  const [pageNumber, setPageNumber] = useState(1);
 
-  console.log(
-    "🚀 ~ file: ClosedCDA.jsx:49 ~ ClosedCDA ~ getCDAListQuery:",
-    getCDAListQuery
-  );
+  const [value, setValue] = useState({
+    userID: userId,
+    agent: "",
+    name: "",
+    file: "",
+  });
+
+  const onDocumentLoadSuccess = ({ numPages }) => {
+    setNumPages(numPages);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -77,7 +94,7 @@ const ClosedCDA = () => {
         }).then((result) => {
           if (result.isConfirmed) {
             handleClose();
-            setValue("");
+            setValue({ userID: userId, agent: "", name: "", file: "" });
           }
         });
       });
@@ -86,17 +103,59 @@ const ClosedCDA = () => {
     }
   };
 
+  const handleChange = (e) => {
+    setValue({
+      ...value,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleAutoChange = (e, newValue, name) => {
+    setValue({
+      ...value,
+      [name]: newValue,
+    });
+  };
+
+  const columnConfig = [
+    {
+      id: "image",
+      numeric: false,
+      disablePadding: false,
+      label: "Thumbnails",
+    },
+    {
+      id: "name",
+      numeric: false,
+      disablePadding: false,
+      label: "Name",
+    },
+    {
+      id: "agents",
+      numeric: false,
+      disablePadding: false,
+      label: "Agents",
+    },
+  ];
+
+  const data = [
+    { name: "Cupcake", agents: 3.7, image: "cupcake.jpg" },
+    { name: "Donut", agents: 25.0, image: "donut.jpg" },
+  ];
+
+  console.log("🚀 ~ file: ClosedCDA.jsx:28 ~ pdf:", pdf);
+
   return (
     <>
       <Stack
         direction={{ xs: "column", sm: "row" }}
         spacing={{ xs: 1, sm: 2, md: 4 }}
-        sx={{ padding: 1, overflow: "auto", maxWidth: "1450px" }}
+        sx={{ padding: 1, overflow: "auto", maxWidth: "1475px" }}
         className="scrollbar"
       >
         {getCDAListQuery?.map((data, index) => {
           return (
-            <Item>
+            <Item key={index}>
               <Button>
                 <CardMedia
                   component="img"
@@ -114,6 +173,17 @@ const ClosedCDA = () => {
           Upload
         </Button>
       </Box>
+
+      <div>
+        <Document file={pdf} onLoadSuccess={onDocumentLoadSuccess}>
+          <Page pageNumber={pageNumber} />
+        </Document>
+        <p>
+          Page {pageNumber} of {numPages}
+        </p>
+      </div>
+
+      <TableData data={data} columnConfig={columnConfig} />
       <Modal
         open={open}
         onClose={handleClose}
@@ -136,19 +206,38 @@ const ClosedCDA = () => {
               <Grid item xs={12}>
                 <Autocomplete
                   disablePortal
-                  id="cboCDA"
-                  options={getUserListData}
+                  id="agent"
+                  options={getUserListData || []}
                   sx={{ width: "100%" }}
-                  value={value}
+                  value={value.agent || ""}
                   getOptionLabel={(option) => option.firstName || ""}
-                  onChange={(event, newValue) => {
-                    setValue(newValue);
-                  }}
+                  isOptionEqualToValue={(option, value) =>
+                    option.id === value.id
+                  }
+                  onChange={(e, newValue) =>
+                    handleAutoChange(e, newValue, "agent")
+                  }
                   renderInput={(params) => (
-                    <TextField {...params} label="User" />
+                    <TextField {...params} label="Agent" />
                   )}
                 />
               </Grid>
+              <Grid item xs={12}>
+                <FormControl fullWidth>
+                  <TextField
+                    type="text"
+                    name="name"
+                    variant="outlined"
+                    color="secondary"
+                    label="Name"
+                    onChange={handleChange}
+                    value={value.name}
+                    fullWidth
+                    required
+                  />
+                </FormControl>
+              </Grid>
+
               <Grid item xs={12}>
                 <Button variant="contained" component="label">
                   Upload File
@@ -159,7 +248,6 @@ const ClosedCDA = () => {
                       setValue({
                         ...value,
                         file: e.target.files[0],
-                        // [e.target.name]: fileInputRef.current.files[0],
                       });
                     }}
                     hidden
