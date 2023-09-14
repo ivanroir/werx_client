@@ -1,5 +1,5 @@
 import React from "react";
-import { useGetUserQuery } from "@/state/api";
+import { useGetUserQuery, useGetCDAListQuery } from "@/state/api";
 import { useSelector } from "react-redux";
 import { Box, CardMedia, Grid, useTheme, Typography } from "@mui/material";
 import BusinessCard from "@/components/BusinessCard";
@@ -16,9 +16,6 @@ const Dashboard = () => {
   const userId = useSelector((state) => state.global.userId);
   const { data } = useGetUserQuery(userId);
   const theme = useTheme();
-
-  // useSelector((state) => console.log("STATE: ", state));
-  // console.log("🚀 ~ file: index.jsx:17 ~ Dashboard ~ data:", data);
 
   const propertiesData = [
     {
@@ -83,7 +80,7 @@ const Dashboard = () => {
     },
   ];
 
-  // console.log("🚀 ~ file: index.jsx:10 ~ Dashboard ~ data:", data);
+  const { data: getCDAListQuery } = useGetCDAListQuery();
 
   return (
     <Box m="1.5rem 2.5rem">
@@ -232,7 +229,7 @@ const Dashboard = () => {
         </Grid>
         <Grid item xs={4} sm={8} md={8}>
           <DashboardBox title="CLOSED CDA">
-            <ClosedCDA />
+            <ClosedCDA datas={getCDAListQuery} />
           </DashboardBox>
         </Grid>
       </Grid>

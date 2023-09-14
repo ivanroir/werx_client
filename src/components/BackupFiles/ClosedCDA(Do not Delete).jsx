@@ -1,3 +1,9 @@
+/*
+For Reference
+
+This back up file is for the tableData file 
+*/
+
 import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
 import {
   Paper,
@@ -11,7 +17,6 @@ import {
   TextField,
   FormControl,
   Grid,
-  useTheme,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import {
@@ -39,16 +44,22 @@ const style = {
   p: 4,
 };
 
-const ClosedCDA = () => {
-  const theme = useTheme();
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: "center",
+  color: theme.palette.text.secondary,
+}));
 
+const ClosedCDA = () => {
   const dispatch = useDispatch();
 
   const { data: getUserListData } = useGetUserListQuery();
-  const { data: getCDAListQuery, isLoading: isLoadingCDAList } =
-    useGetCDAListQuery();
+  const { data: getCDAListQuery, isLoading: isLoadingCDAList } = useGetCDAListQuery();
 
-  const [clickedRow, setClickedRow] = useState();
+  const [data, setData] = useState([]);
+  const [dataAvailable, setDataAvailable] = useState(false);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -56,6 +67,7 @@ const ClosedCDA = () => {
   const fileInputRef = useRef(null);
 
   const userId = useSelector((state) => state.global.userId);
+  const CDAList = useSelector((state) => state.global.cdaList);
 
   const [value, setValue] = useState({
     userID: userId,
@@ -63,12 +75,6 @@ const ClosedCDA = () => {
     name: "",
     file: "",
   });
-
-  const onButtonClick = (e, row) => {
-    e.stopPropagation();
-    console.log("🚀 ~ file: ClosedCDA.jsx:68 ~ onButtonClick ~ row:", row);
-    setClickedRow(row);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -112,89 +118,58 @@ const ClosedCDA = () => {
 
   const cdaColumnConfig = [
     {
-      field: "file",
-      headerName: "Thumbnails",
-      flex: 1,
+      id: "image",
+      numeric: false,
+      disablePadding: false,
+      label: "Thumbnails",
     },
     {
-      field: "name",
-      headerName: "Name",
-      flex: 1,
+      id: "name",
+      numeric: false,
+      disablePadding: false,
+      label: "Name",
     },
     {
-      field: "agentID",
-      headerName: "Agents",
-      flex: 1,
-    },
-    {
-      field: "actions",
-      headerName: "Actions",
-      flex: 1,
-      renderCell: (params) => {
-        return (
-          <>
-            <Button
-              onClick={(e) => onButtonClick(e, params.row)}
-              variant="contained"
-            >
-              Edit
-            </Button>
-            <Button
-              onClick={(e) => onButtonClick(e, params.row)}
-              variant="contained"
-            >
-              Delete
-            </Button>
-          </>
-        );
-      },
+      id: "agents",
+      numeric: false,
+      disablePadding: false,
+      label: "Agents",
     },
   ];
 
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const processedData = CDAList?.map((item) => ({
+          name: item.name,
+          agents: item.agentID,
+          image: item.file,
+        }));
+
+        if (processedData && processedData.length > 0) {
+          setData(processedData);
+          setDataAvailable(true);
+        } else {
+          setDataAvailable(false);
+        }
+      } catch (error) {
+        console.error("Error fetching and processing data:", error);
+      }
+    }
+    fetchData();
+  }, [CDAList]);
+
   return (
     <>
-      <Box
-        gridColumn="span 8"
-        gridRow="span 3"
-        sx={{
-          "& .MuiDataGrid-root": {
-            border: "none",
-            borderRadius: "5rem",
-          },
-          "& .MuiDataGrid-cell": {
-            borderBottom: "none",
-          },
-          "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: theme.palette.background.alt,
-            color: theme.palette.secondary[100],
-            borderBottom: "none",
-          },
-          "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: theme.palette.background.alt,
-          },
-          "& .MuiDataGrid-footerContainer": {
-            backgroundColor: theme.palette.background.alt,
-            color: theme.palette.secondary[100],
-            borderTop: "none",
-          },
-          "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-            color: `${theme.palette.secondary[200]} !important`,
-          },
-        }}
-      >
-        <DataGrid
-          loading={isLoadingCDAList || !getCDAListQuery}
-          getRowId={(row) => row._id}
-          rows={getCDAListQuery || []}
-          columns={cdaColumnConfig}
-        />
-      </Box>
-      clickedRow: {clickedRow ? `${clickedRow._id}` : null}
+      {dataAvailable && (
+        <TableData data={data} columnConfig={cdaColumnConfig} />
+      )}
       <Box display="flex" justifyContent="end" pt={1}>
         <Button onClick={handleOpen} variant="contained">
           Upload
         </Button>
       </Box>
+
       <Modal
         open={open}
         onClose={handleClose}
