@@ -7,6 +7,7 @@ const initialState = {
   loading: false,
   user: [],
   error: "",
+  cdaList: [],
 };
 
 export const addCDA = createAsyncThunk("global/StoreCDA", async (values) => {
@@ -70,6 +71,9 @@ export const globalSlice = createSlice({
     setMode: (state) => {
       state.mode = state.mode == "light" ? "dark" : "light";
     },
+    setInitialCDAList: (state, action) => {
+      state.cdaList = action.payload;
+    },
   },
 
   // Reducer Calls
@@ -109,6 +113,6 @@ export const globalSlice = createSlice({
   },
 });
 
-export const { setMode } = globalSlice.actions;
+export const { setMode, setInitialCDAList } = globalSlice.actions;
 
 export default globalSlice.reducer;

@@ -24,7 +24,6 @@ import {
 } from "@mui/icons-material";
 import { Link as LinkRouter } from "react-router-dom";
 import FlexBetween from "@/components/FlexBetween";
-import { styled } from "@mui/material/styles";
 import logo from "@/assets/logo.png";
 
 const BusinessCard = ({ user }) => {

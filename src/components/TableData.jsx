@@ -21,6 +21,7 @@ import Switch from "@mui/material/Switch";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
+import { useGetUserQuery } from "@/state/api";
 
 const EnhancedTable = ({ columnConfig, data }) => {
   const [order, setOrder] = React.useState("asc");
@@ -159,9 +160,21 @@ const EnhancedTable = ({ columnConfig, data }) => {
                     key={row.name}
                     sx={{ cursor: "pointer" }}
                   >
-                    {headCells.map((headCell) => (
-                      <TableCell key={headCell.id} align="left">{row[headCell.id]}</TableCell>
-                    ))}
+                    {headCells.map((headCell) => {
+                      {
+                        headCell.id == "agents" &&
+                          console.log(
+                            "🚀 ~ file: TableData.jsx:170 ~ {headCells.map ~ headCell:",
+                            useGetUserQuery(row[headCell.id])
+                          );
+                      }
+                      return (
+                        <TableCell key={headCell.id} align="left">
+                          {row[headCell.id]}
+                        </TableCell>
+                      );
+                    })}
+
                     <TableCell align="left">BUTTONS</TableCell>
                   </TableRow>
                 );

@@ -9,8 +9,8 @@ const Inbox = () => {
   const userId = useSelector((state) => state.global.userId);
   const { data } = useGetUserQuery(userId);
   return (
-    <React.Fragment>
-        <BusinessCard user={data || {}} />
+    <Box m="1.5rem 2.5rem">
+      <BusinessCard user={data || {}} />
 
       <Grid
         container
@@ -109,7 +109,7 @@ const Inbox = () => {
           </Grid>
         </Grid>
       </Grid>
-    </React.Fragment>
+    </Box>
   );
 };
 

@@ -30,7 +30,8 @@ import {
   InboxOutlined,
   BusinessOutlined,
   BarChartOutlined,
-  EventOutlined
+  EventOutlined,
+  PersonOutlined
 } from "@mui/icons-material";
 import { useLocation, useNavigate } from "react-router-dom";
 import FlexBetween from "@/components/FlexBetween";
@@ -70,6 +71,10 @@ const navItems = [
   {
     text: "Admin",
     icon: <AdminPanelSettingsOutlined />,
+  },
+  {
+    text: "Users",
+    icon: <PersonOutlined />,
   },
   {
     text: "Performance",
