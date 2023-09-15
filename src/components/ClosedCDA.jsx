@@ -137,6 +137,12 @@ const ClosedCDA = () => {
               onClick={(e) => onButtonClick(e, params.row)}
               variant="contained"
             >
+              Show
+            </Button>
+            <Button
+              onClick={(e) => onButtonClick(e, params.row)}
+              variant="contained"
+            >
               Edit
             </Button>
             <Button
@@ -180,6 +186,8 @@ const ClosedCDA = () => {
           "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
             color: `${theme.palette.secondary[200]} !important`,
           },
+          height: 900,
+          width: "100%",
         }}
       >
         <DataGrid

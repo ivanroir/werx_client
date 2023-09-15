@@ -39,7 +39,7 @@ const BusinessCard = ({ user }) => {
   );
 
   return (
-    <FlexBetween backgroundColor={theme.palette.neutral[50]}>
+    <FlexBetween backgroundColor={theme.palette.background.alt}>
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid item xs={7}>
           <Grid
@@ -52,6 +52,7 @@ const BusinessCard = ({ user }) => {
                 container
                 rowSpacing={1}
                 columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                height="100%"
               >
                 <Grid item xs={2}>
                   <Box p="1rem">
@@ -79,24 +80,24 @@ const BusinessCard = ({ user }) => {
                     <Typography
                       component="div"
                       fontWeight="bold"
-                      fontSize="0.9rem"
-                      sx={{ color: theme.palette.neutral[700] }}
+                      fontSize="1.2rem"
+                      sx={{ color: theme.palette.grey[10] }}
                     >
                       {user.firstName} {user.middleName} {user.lastName}
                     </Typography>
                     <Typography
                       component="div"
                       fontWeight="500"
-                      fontSize="0.7rem"
-                      sx={{ color: theme.palette.neutral[700] }}
+                      fontSize="0.75rem"
+                      sx={{ color: theme.palette.grey[10] }}
                     >
                       License: {user.licenseNumber} {bull} Expires {user.licenseExpirationDate}
                     </Typography>
                     <Link
                       href={user.sponsorLink}
                       fontWeight="500"
-                      fontSize="0.7rem"
-                      sx={{ color: theme.palette.neutral[700] }}
+                      fontSize="0.75rem"
+                      sx={{ color: theme.palette.grey[10] }}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -106,15 +107,15 @@ const BusinessCard = ({ user }) => {
                     <Typography
                       component="div"
                       fontWeight="500"
-                      fontSize="0.7rem"
-                      sx={{ color: theme.palette.neutral[700] }}
+                      fontSize="0.75rem"
+                      sx={{ color: theme.palette.grey[10] }}
                     >
                       JoinReal Email: {user.email} |{" "}
                       <Link
                         href={user.website}
                         fontWeight="500"
-                        fontSize="0.7rem"
-                        sx={{ color: theme.palette.neutral[700] }}
+                        fontSize="0.75rem"
+                        sx={{ color: theme.palette.grey[10] }}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -125,8 +126,8 @@ const BusinessCard = ({ user }) => {
                     <Typography
                       component="div"
                       fontWeight="500"
-                      fontSize="0.7rem"
-                      sx={{ color: theme.palette.neutral[700] }}
+                      fontSize="0.75rem"
+                      sx={{ color: theme.palette.grey[10] }}
                     >
                       ⓢ Stock Purchase Plan Opted In:
                       <Button
@@ -172,8 +173,8 @@ const BusinessCard = ({ user }) => {
               <Typography
                 component="div"
                 fontWeight="500"
-                fontSize="0.7rem"
-                sx={{ color: theme.palette.neutral[700] }}
+                fontSize="0.8rem"
+                sx={{ color: theme.palette.grey[10] }}
               >
                 Contact Information
               </Typography>
@@ -183,9 +184,9 @@ const BusinessCard = ({ user }) => {
                   <Typography
                     component="div"
                     fontWeight="500"
-                    fontSize="0.6rem"
+                    fontSize="0.65rem"
                     pl="0.3rem"
-                    sx={{ color: theme.palette.neutral[700] }}
+                    sx={{ color: theme.palette.grey[10] }}
                   >
                     ({user.countryCode}) {user.phoneNumber}
                   </Typography>
@@ -197,9 +198,9 @@ const BusinessCard = ({ user }) => {
                   <Typography
                     component="div"
                     fontWeight="500"
-                    fontSize="0.6rem"
+                    fontSize="0.65rem"
                     pl="0.3rem"
-                    sx={{ color: theme.palette.neutral[700] }}
+                    sx={{ color: theme.palette.grey[10] }}
                   >
                     {user.email}
                   </Typography>
@@ -209,9 +210,9 @@ const BusinessCard = ({ user }) => {
                   <Typography
                     component="div"
                     fontWeight="500"
-                    fontSize="0.6rem"
+                    fontSize="0.65rem"
                     pl="0.3rem"
-                    sx={{ color: theme.palette.neutral[700] }}
+                    sx={{ color: theme.palette.grey[10] }}
                   >
                     {user.email}
                   </Typography>
@@ -223,9 +224,9 @@ const BusinessCard = ({ user }) => {
                   <Typography
                     component="div"
                     fontWeight="500"
-                    fontSize="0.6rem"
+                    fontSize="0.65rem"
                     pl="0.3rem"
-                    sx={{ color: theme.palette.neutral[700] }}
+                    sx={{ color: theme.palette.grey[10] }}
                   >
                     {user.address}, {user.city}, {user.state} {user.zip}
                   </Typography>
@@ -235,8 +236,8 @@ const BusinessCard = ({ user }) => {
               <Typography
                 component="div"
                 fontWeight="500"
-                fontSize="0.7rem"
-                sx={{ color: theme.palette.neutral[700] }}
+                fontSize="0.8rem"
+                sx={{ color: theme.palette.grey[10] }}
               >
                 Transactions
                 <Link
@@ -264,8 +265,8 @@ const BusinessCard = ({ user }) => {
                   <Typography
                     component="div"
                     fontWeight="500"
-                    fontSize="0.7rem"
-                    sx={{ color: theme.palette.neutral[700] }}
+                    fontSize="0.8rem"
+                    sx={{ color: theme.palette.grey[10] }}
                   >
                     0
                   </Typography>
@@ -273,7 +274,7 @@ const BusinessCard = ({ user }) => {
                     component="div"
                     fontWeight="500"
                     fontSize="0.75rem"
-                    sx={{ color: theme.palette.neutral[700] }}
+                    sx={{ color: theme.palette.grey[10] }}
                   >
                     Active
                   </Typography>
@@ -289,8 +290,8 @@ const BusinessCard = ({ user }) => {
                   <Typography
                     component="div"
                     fontWeight="500"
-                    fontSize="0.7rem"
-                    sx={{ color: theme.palette.neutral[700] }}
+                    fontSize="0.8rem"
+                    sx={{ color: theme.palette.grey[10] }}
                   >
                     0
                   </Typography>
@@ -298,7 +299,7 @@ const BusinessCard = ({ user }) => {
                     component="div"
                     fontWeight="500"
                     fontSize="0.75rem"
-                    sx={{ color: theme.palette.neutral[700] }}
+                    sx={{ color: theme.palette.grey[10] }}
                   >
                     Closed
                   </Typography>
@@ -314,8 +315,8 @@ const BusinessCard = ({ user }) => {
                   <Typography
                     component="div"
                     fontWeight="500"
-                    fontSize="0.7rem"
-                    sx={{ color: theme.palette.neutral[700] }}
+                    fontSize="0.8rem"
+                    sx={{ color: theme.palette.grey[10] }}
                   >
                     0
                   </Typography>
@@ -323,7 +324,7 @@ const BusinessCard = ({ user }) => {
                     component="div"
                     fontWeight="500"
                     fontSize="0.75rem"
-                    sx={{ color: theme.palette.neutral[700] }}
+                    sx={{ color: theme.palette.grey[10] }}
                   >
                     Terminated
                   </Typography>
@@ -333,8 +334,8 @@ const BusinessCard = ({ user }) => {
               <Typography
                 component="div"
                 fontWeight="500"
-                fontSize="0.7rem"
-                sx={{ color: theme.palette.neutral[700] }}
+                fontSize="0.8rem"
+                sx={{ color: theme.palette.grey[10] }}
               >
                 Listings
                 <Link
@@ -360,8 +361,8 @@ const BusinessCard = ({ user }) => {
                   <Typography
                     component="div"
                     fontWeight="500"
-                    fontSize="0.7rem"
-                    sx={{ color: theme.palette.neutral[700] }}
+                    fontSize="0.8rem"
+                    sx={{ color: theme.palette.grey[10] }}
                   >
                     0
                   </Typography>
@@ -369,7 +370,7 @@ const BusinessCard = ({ user }) => {
                     component="div"
                     fontWeight="500"
                     fontSize="0.75rem"
-                    sx={{ color: theme.palette.neutral[700] }}
+                    sx={{ color: theme.palette.grey[10] }}
                   >
                     Active
                   </Typography>
@@ -385,8 +386,8 @@ const BusinessCard = ({ user }) => {
                   <Typography
                     component="div"
                     fontWeight="500"
-                    fontSize="0.7rem"
-                    sx={{ color: theme.palette.neutral[700] }}
+                    fontSize="0.8rem"
+                    sx={{ color: theme.palette.grey[10] }}
                   >
                     0
                   </Typography>
@@ -394,7 +395,7 @@ const BusinessCard = ({ user }) => {
                     component="div"
                     fontWeight="500"
                     fontSize="0.75rem"
-                    sx={{ color: theme.palette.neutral[700] }}
+                    sx={{ color: theme.palette.grey[10] }}
                   >
                     Closed
                   </Typography>
@@ -410,8 +411,8 @@ const BusinessCard = ({ user }) => {
                   <Typography
                     component="div"
                     fontWeight="500"
-                    fontSize="0.7rem"
-                    sx={{ color: theme.palette.neutral[700] }}
+                    fontSize="0.8rem"
+                    sx={{ color: theme.palette.grey[10] }}
                   >
                     0
                   </Typography>
@@ -419,7 +420,7 @@ const BusinessCard = ({ user }) => {
                     component="div"
                     fontWeight="500"
                     fontSize="0.75rem"
-                    sx={{ color: theme.palette.neutral[700] }}
+                    sx={{ color: theme.palette.grey[10] }}
                   >
                     Terminated
                   </Typography>
