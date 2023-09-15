@@ -17,9 +17,11 @@ const DashboardBox = ({
   children,
   subTitle,
   caption,
+  isSearchAvailable = true,
   ...props
 }) => {
   const theme = useTheme();
+
   return (
     <Box
       gridColumn="span 4"
@@ -60,17 +62,19 @@ const DashboardBox = ({
             >
               {title2}
             </Typography>
-            <FlexBetween
-              backgroundColor={theme.palette.background.alt}
-              borderRadius="9px"
-              gap="3rem"
-              pb="1rem"
-            >
-              <InputBase placeholder="Search..." />
-              <IconButton>
-                <Search />
-              </IconButton>
-            </FlexBetween>
+            {isSearchAvailable == true && (
+              <FlexBetween
+                backgroundColor={theme.palette.background.alt}
+                borderRadius="9px"
+                gap="3rem"
+                pb="1rem"
+              >
+                <InputBase placeholder="Search..." />
+                <IconButton>
+                  <Search />
+                </IconButton>
+              </FlexBetween>
+            )}
           </Grid>
         )}
       </Grid>

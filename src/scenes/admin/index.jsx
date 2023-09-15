@@ -1,9 +1,12 @@
-import React from 'react'
+import { Box } from "@mui/material";
+import React from "react";
 
 const Admin = () => {
   return (
-    <div>Admin</div>
-  )
-}
+    <Box m="1.5rem 2.5rem">
+      <div>Admin</div>
+    </Box>
+  );
+};
 
-export default Admin
+export default Admin;

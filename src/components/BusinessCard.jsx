@@ -46,13 +46,13 @@ const BusinessCard = ({ user }) => {
             container
             rowSpacing={1}
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          >
+            height="100%"
+            >
             <Grid item xs={12}>
               <Grid
                 container
                 rowSpacing={1}
                 columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-                height="100%"
               >
                 <Grid item xs={2}>
                   <Box p="1rem">
